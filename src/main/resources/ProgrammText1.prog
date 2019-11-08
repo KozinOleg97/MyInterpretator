@@ -1,0 +1,5 @@
+Programm Prog1
+{
+    Int var1;
+    Int var2 = 5;
+}.
