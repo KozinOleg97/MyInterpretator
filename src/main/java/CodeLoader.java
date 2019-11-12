@@ -6,18 +6,20 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Loads text of the program
+ * Loads text of the PROGRAM
  */
 public class CodeLoader {
 
     //private String text;
     private String curPath;
     private List<String> listOfCode = Collections.emptyList();
+    private String[] arrayOfCode;
 
     CodeLoader(String path) {
         this.curPath = path;
         listOfCode = LoadCodeToList();
         listOfCode = CleanListOfCode(listOfCode);
+        arrayOfCode = listOfCode.toArray(new String[listOfCode.size()]);
     }
 
     private List<String> CleanListOfCode(List<String> listOfCode) {
@@ -39,6 +41,9 @@ public class CodeLoader {
 
     public List<String> getListOfCode() {
         return listOfCode;
+    }
+    public String[] getArrayOfCode() {
+        return arrayOfCode;
     }
 
 

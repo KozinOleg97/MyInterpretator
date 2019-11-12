@@ -6,10 +6,11 @@ public class LanguageConfigurator {
     /**
      *
      */
-    enum LexTypes {
+
+
+
+    LanguageConfigurator(String path) {
 
     }
-
-
 
 }
