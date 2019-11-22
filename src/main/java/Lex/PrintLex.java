@@ -1,4 +1,7 @@
-import javax.script.ScriptException;
+package Lex;
+
+import Core.Expr;
+import Core.Interpretator;
 
 public class PrintLex  extends Lex{
     public PrintLex(String code) {
@@ -7,12 +10,10 @@ public class PrintLex  extends Lex{
 
     @Override
     public void exec(Interpretator inter) {
-        try {
-            Object res = Expression.eval(inter.varList, code);
+
+            Object res = Expr.eval(inter.varList, code);
             System.out.println(res);
-        } catch (ScriptException e) {
-            e.printStackTrace();
-        }
+
         inter.nextLine();
     }
 }

@@ -1,3 +1,5 @@
+package Core;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -15,7 +17,7 @@ public class CodeLoader {
     private List<String> listOfCode = Collections.emptyList();
     private String[] arrayOfCode;
 
-    CodeLoader(String path) {
+    public CodeLoader(String path) {
         this.curPath = path;
         listOfCode = LoadCodeToList();
         listOfCode = CleanListOfCode(listOfCode);

@@ -1,3 +1,7 @@
+package Lex;
+
+import Core.Interpretator;
+
 abstract public class Lex {
 
     String code;

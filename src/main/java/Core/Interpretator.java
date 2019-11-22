@@ -1,9 +1,14 @@
+package Core;
+
+import Lex.InitLex;
+import Lex.Lex;
+import Types.Var;
+
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static javax.swing.UIManager.put;
 
 /**
  * Executes the parse tree
@@ -21,12 +26,12 @@ public class Interpretator {
             {"realVar", "^Real *[a-zA-Z] *= *.*;$"}
     };*/
 
-    final Integer DEFAULT_INT_VALUE = 0;
-    final Double DEFAULT_REAL_VALUE = 0.0;
-    final String DEFAULT_STR_VALUE = "";
-    final Boolean DEFAULT_BOOL_VALUE = false;
+    public static final Integer DEFAULT_INT_VALUE = 0;
+    public static final Double DEFAULT_REAL_VALUE = 0.0;
+    public static final String DEFAULT_STR_VALUE = "";
+    public static final Boolean DEFAULT_BOOL_VALUE = false;
 
-    VarList varList;
+    public VarList varList = new VarList();
     String[] allCode;
 
     Integer curLine;
@@ -89,85 +94,15 @@ public class Interpretator {
 
             newLex.exec(this);
 
+
         }
     }
 
     public class VarList {
-        List<Var> list;
+        public List<Var> list = new ArrayList<>();
+
     }
 
-    interface Var<V> {
-        //LanguageConfigurator.DataTypes;
-        //Integer id;
-        /*Integer intValue = null;
-        Float realValue = null;
-        String strValue = null;
-        Boolean boolValue = null;*/
-
-        void setValue(V value);
-
-        V getValue();
-    }
-
-    public class IntVar implements Var<Integer> {
-
-        Integer value = DEFAULT_INT_VALUE;
-
-        @Override
-        public void setValue(Integer value) {
-
-        }
-
-        @Override
-        public Integer getValue() {
-            return null;
-        }
-    }
-
-    public class RealVar implements Var<Double> {
-
-        Double value = DEFAULT_REAL_VALUE;
-
-        @Override
-        public void setValue(Double value) {
-
-        }
-
-        @Override
-        public Double getValue() {
-            return null;
-        }
-    }
-
-    public class StrVar implements Var<String> {
-
-        String value = DEFAULT_STR_VALUE;
-
-        @Override
-        public void setValue(String value) {
-
-        }
-
-        @Override
-        public String getValue() {
-            return null;
-        }
-    }
-
-    public class BoolVar implements Var<Boolean> {
-
-        Boolean value = DEFAULT_BOOL_VALUE;
-
-        @Override
-        public void setValue(Boolean value) {
-
-        }
-
-        @Override
-        public Boolean getValue() {
-            return null;
-        }
-    }
 
     public void loadCodeToArrayOfCode() {
         mainCodeLoader = new CodeLoader(pathToCode);
@@ -176,7 +111,6 @@ public class Interpretator {
     public void loadLangConfig() {
         configurator = new LanguageConfigurator(pathToConfig);
     }
-
 
 
 }
