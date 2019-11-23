@@ -1,5 +1,7 @@
 package Types;
 
+import Core.ExprResult;
+
 abstract public class Var<V> {
     //Core.LanguageConfigurator.DataTypes;
     //Integer id;
@@ -10,11 +12,16 @@ abstract public class Var<V> {
     String name;
     V value;
 
-    public Var(String name){
+    public Var(String name) {
         this.name = name;
     }
 
     abstract public void setValue(V value);
 
+
     abstract public V getValue();
+
+    public String getName(){
+        return name;
+    }
 }

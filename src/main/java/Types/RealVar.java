@@ -1,5 +1,6 @@
 package Types;
 
+import Core.ExprResult;
 import Core.Interpretator;
 
 public class RealVar extends Var<Double> {
@@ -14,6 +15,8 @@ public class RealVar extends Var<Double> {
     public void setValue(Double value) {
         this.value = value;
     }
+
+
 
     @Override
     public Double getValue() {

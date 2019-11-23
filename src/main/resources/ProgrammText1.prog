@@ -1,3 +1,10 @@
     Int a = 5 + 5;
+    Int x = a+5;
+    a =5;
+    Print("x = " +x);
     Real b = 5;
     Print(34 + 6 + a + " qwe");
+    Print(a+ "qwe"+ b);
+    Print("qwe");
+    Int c=2;
+    Print (c+c*c);

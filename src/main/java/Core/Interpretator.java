@@ -3,6 +3,7 @@ package Core;
 import Lex.InitLex;
 import Lex.Lex;
 import Lex.PrintLex;
+import Lex.AssignmentLex;
 import Types.Var;
 
 import java.lang.reflect.InvocationTargetException;
@@ -21,6 +22,7 @@ public class Interpretator {
         put("^Real *[a-zA-Z] *= *.*;$", InitLex.class);
         put("^String *[a-zA-Z] *= *.*;$", InitLex.class);
         put("^Print *\\(.*\\);$", PrintLex.class);
+        put(".*=.*;$", AssignmentLex.class);
     }};
 
     /*public String[][] dataList = {

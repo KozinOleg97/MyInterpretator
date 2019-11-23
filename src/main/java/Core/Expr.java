@@ -6,13 +6,15 @@ import org.mariuszgromada.math.mxparser.Expression;
 import java.util.Map;
 
 public class Expr {
-    public static Double eval(Interpretator.VarList vars, String code) {
+    public static ExprResult eval(Interpretator.VarList vars, String code) {
 
         String resCode = setValues(vars, code);
-        Expression e = new Expression(resCode);
-        //System.out.println();
 
-        return e.calculate();
+
+        Expression e = new Expression(resCode);
+        ExprResult res = new ExprResult(e.calculate());
+
+        return res;
 
     }
 
@@ -40,5 +42,45 @@ public class Expr {
             res += curPart;
         }
         return res;
+    }
+
+    public static ExprResult multiCalc(Interpretator inter, String body) {
+        String exprPart = "";
+        String res = "";
+        Boolean stringFlag = false;
+        char curSymb;
+        for (int i = 0; i < body.length(); i++) {
+            curSymb = body.charAt(i);
+
+            if (curSymb != '"') {
+                if (stringFlag) {
+                    res += curSymb;
+                } else {
+                    exprPart += curSymb;
+                }
+            } else {
+                if (stringFlag) {
+                    stringFlag = false;
+                } else {
+
+                    stringFlag = true;
+                    if (!exprPart.isEmpty()) {
+                        //возможно нужно удалять последний +. done!
+                        exprPart = exprPart.trim();
+                        exprPart = exprPart.substring(0, exprPart.length() - 1);
+                        res += Expr.eval(inter.varList, exprPart).strVal;
+                    }
+
+                    exprPart = "";
+                }
+            }
+        }
+        if (!exprPart.isEmpty()) {
+            res += Expr.eval(inter.varList, exprPart).strVal;
+            exprPart = "";
+        }
+
+        ExprResult result = new ExprResult(res);
+        return result;
     }
 }

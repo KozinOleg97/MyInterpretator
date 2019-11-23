@@ -1,5 +1,6 @@
 package Types;
 
+import Core.ExprResult;
 import Core.Interpretator;
 
 public class StrVar extends Var<String> {
@@ -15,8 +16,12 @@ public class StrVar extends Var<String> {
 
     }
 
+
+
     @Override
     public String getValue() {
         return null;
     }
+
+
 }

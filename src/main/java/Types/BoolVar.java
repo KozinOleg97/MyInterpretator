@@ -1,5 +1,6 @@
 package Types;
 
+import Core.ExprResult;
 import Core.Interpretator;
 
 public class BoolVar extends Var<Boolean> {
@@ -14,6 +15,8 @@ public class BoolVar extends Var<Boolean> {
     public void setValue(Boolean value) {
 
     }
+
+
 
     @Override
     public Boolean getValue() {

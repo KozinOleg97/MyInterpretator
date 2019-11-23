@@ -1,12 +1,12 @@
 package Lex;
 
 import Core.Expr;
+import Core.ExprResult;
 import Core.Interpretator;
-import Types.IntVar;
-import Types.RealVar;
-import Types.Var;
+import Core.Typecaster;
+import Types.*;
 
-public class InitLex extends Lex {
+public class InitLex extends AssignmentLex {
     public InitLex(String code) {
         super(code);
     }
@@ -14,60 +14,73 @@ public class InitLex extends Lex {
     @Override
     public void exec(Interpretator inter) {
 
-        String typeSt = getType(code);
-        String varName = getVarName(code);
-        createNewVar(inter, typeSt, varName);
+        Var var = getVar(code, inter.varList);
+        ExprResult result = calcRightPart(code, var, inter);
 
+        Typecaster.setValue(var, result);
+        addVarToVarList(var, inter.varList);
+
+        //var.setValue(result.getValue(var));
         inter.nextLine();
+
+
+
+        /*String typeSt = getType(code);
+        String varName = getVarName(code);
+        Var var = createNewVar(inter, typeSt, varName);
+
+        inter.nextLine();*/
     }
 
+    private void addVarToVarList(Var var, Interpretator.VarList varList) {
+        varList.vars.put(var.getName(), var);
+    }
 
-    private void createNewVar(Interpretator inter, String typeSt, String varName) {
-        switch (typeSt) {
+    private ExprResult calcRightPart(String code, Var var, Interpretator inter) {
+
+        String body = getBody(code);
+
+        return Expr.multiCalc(inter, body);
+    }
+
+    private Var getVar(String code, Interpretator.VarList varList) {
+
+        Integer endIntex = code.indexOf("=");
+        String leftPart = code.substring(0, endIntex);
+        leftPart = leftPart.trim();
+        String[] parts = leftPart.split(" ");
+        String type = parts[0];
+        String name = parts[1];
+
+        Var var = createNewVar(type, name);
+
+        return var;
+    }
+
+    private String getBody(String line) {
+        Integer beginIndex = line.indexOf("=") + 1;
+        Integer endIndex = line.lastIndexOf(";");
+        return line.substring(beginIndex, endIndex);
+    }
+
+    private Var createNewVar(String type, String name) {
+
+        Var var = null;
+        switch (type) {
             case "Int":
-                //create var
-                inter.varList.vars.put(varName, new IntVar(varName));
-
-                //calc value
-                Integer intVal = Expr.eval(inter.varList, getValueStr(code)).intValue();
-
-                //set value
-                Var intVar = inter.varList.vars.get(varName);
-                intVar.setValue(intVal);
+                var = new IntVar(name);
                 break;
             case "Real":
-                //create var
-                inter.varList.vars.put(varName, new RealVar(varName));
-
-                //calc value
-                Double doubleVal = Expr.eval(inter.varList, getValueStr(code));
-
-                //set value
-                Var realVar = inter.varList.vars.get(varName);
-                realVar.setValue(doubleVal);
+                var = new RealVar(name);
                 break;
-
+            case "Str":
+                var = new StrVar(name);
+                break;
+            case "Bool":
+                var = new BoolVar(name);
+                break;
         }
-    }
-
-    private String getValueStr(String line) {
-        Integer indexStart = line.indexOf("=") + 1;
-        Integer indexEnd = line.indexOf(";");
-        return line.substring(indexStart, indexEnd).trim();
-    }
-
-    private String getType(String line) {
-        String[] parts = line.split(" ");
-        return parts[0];
-    }
-
-    private String getVarName(String line) {
-        String[] parts = line.split(" ");
-        Integer index = parts[1].indexOf("=");
-        if (index == -1) {
-            return parts[1].trim();
-        } else {
-            return parts[1].substring(0, index);
-        }
+        return var;
     }
 }
+

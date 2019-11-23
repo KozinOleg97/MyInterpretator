@@ -1,9 +1,10 @@
 package Types;
 
 
+import Core.ExprResult;
 import Core.Interpretator;
 
-public class IntVar extends Var<Integer> {
+public final class IntVar extends Var<Integer> {
 
     Integer value = Interpretator.DEFAULT_INT_VALUE;
 
@@ -16,6 +17,7 @@ public class IntVar extends Var<Integer> {
     public void setValue(Integer value) {
         this.value = value;
     }
+
 
     @Override
     public Integer getValue() {
