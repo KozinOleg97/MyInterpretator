@@ -3,7 +3,7 @@ package Lex;
 import Core.Expr;
 import Core.Interpretator;
 
-public class PrintLex extends Lex {
+public class PrintLex extends ProcedureLex {
     public PrintLex(String code) {
         super(code);
     }
@@ -23,13 +23,5 @@ public class PrintLex extends Lex {
         System.out.println(res);
 
         inter.nextLine();
-    }
-
-
-
-    private String getBody(String line) {
-        Integer beginIndex = line.indexOf("(") + 1;
-        Integer endIndex = line.lastIndexOf(")");
-        return line.substring(beginIndex, endIndex);
     }
 }

@@ -20,28 +20,13 @@ public class InitLex extends AssignmentLex {
         Typecaster.setValue(var, result);
         addVarToVarList(var, inter.varList);
 
-        //var.setValue(result.getValue(var));
         inter.nextLine();
-
-
-
-        /*String typeSt = getType(code);
-        String varName = getVarName(code);
-        Var var = createNewVar(inter, typeSt, varName);
-
-        inter.nextLine();*/
     }
 
     private void addVarToVarList(Var var, Interpretator.VarList varList) {
         varList.vars.put(var.getName(), var);
     }
 
-    private ExprResult calcRightPart(String code, Var var, Interpretator inter) {
-
-        String body = getBody(code);
-
-        return Expr.multiCalc(inter, body);
-    }
 
     private Var getVar(String code, Interpretator.VarList varList) {
 
@@ -55,12 +40,6 @@ public class InitLex extends AssignmentLex {
         Var var = createNewVar(type, name);
 
         return var;
-    }
-
-    private String getBody(String line) {
-        Integer beginIndex = line.indexOf("=") + 1;
-        Integer endIndex = line.lastIndexOf(";");
-        return line.substring(beginIndex, endIndex);
     }
 
     private Var createNewVar(String type, String name) {

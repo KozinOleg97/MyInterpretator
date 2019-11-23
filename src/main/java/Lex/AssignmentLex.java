@@ -23,7 +23,7 @@ public class AssignmentLex extends Lex {
 
     }
 
-    private ExprResult calcRightPart(String code, Var var, Interpretator inter) {
+    protected ExprResult calcRightPart(String code, Var var, Interpretator inter) {
 
         String body = getBody(code);
 
@@ -31,8 +31,8 @@ public class AssignmentLex extends Lex {
     }
 
     private Var getVar(String code, Interpretator.VarList varList) {
-        Integer endIntex = code.indexOf("=");
-        String varName = code.substring(0, endIntex);
+        Integer endIndex = code.indexOf("=");
+        String varName = code.substring(0, endIndex);
         varName = varName.trim();
         return varList.vars.get(varName);
     }
