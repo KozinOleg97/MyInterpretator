@@ -12,11 +12,11 @@ public class RealVar extends Var<Double> {
 
     @Override
     public void setValue(Double value) {
-
+        this.value = value;
     }
 
     @Override
     public Double getValue() {
-        return null;
+        return value;
     }
 }

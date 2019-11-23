@@ -1,2 +1,3 @@
-    Int a = 5+5;
-    Int b = 5;
+    Int a = 5 + 5;
+    Real b = 5;
+    Print(34 + 6 + a + " qwe");

@@ -14,7 +14,7 @@ abstract public class Var<V> {
         this.name = name;
     }
 
-    abstract void setValue(V value);
+    abstract public void setValue(V value);
 
-    abstract V getValue();
+    abstract public V getValue();
 }

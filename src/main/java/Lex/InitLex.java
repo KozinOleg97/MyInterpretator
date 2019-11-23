@@ -3,6 +3,8 @@ package Lex;
 import Core.Expr;
 import Core.Interpretator;
 import Types.IntVar;
+import Types.RealVar;
+import Types.Var;
 
 public class InitLex extends Lex {
     public InitLex(String code) {
@@ -23,14 +25,28 @@ public class InitLex extends Lex {
     private void createNewVar(Interpretator inter, String typeSt, String varName) {
         switch (typeSt) {
             case "Int":
-                inter.varList.list.add(new IntVar(varName));
+                //create var
+                inter.varList.vars.put(varName, new IntVar(varName));
 
-                Integer val = Expr.eval(inter.varList, getValueStr(code)).intValue();
+                //calc value
+                Integer intVal = Expr.eval(inter.varList, getValueStr(code)).intValue();
 
-                //Установить значение переменной. Возможно поменять структуру хранения переменных
-                inter.varList.list.size();
-
+                //set value
+                Var intVar = inter.varList.vars.get(varName);
+                intVar.setValue(intVal);
                 break;
+            case "Real":
+                //create var
+                inter.varList.vars.put(varName, new RealVar(varName));
+
+                //calc value
+                Double doubleVal = Expr.eval(inter.varList, getValueStr(code));
+
+                //set value
+                Var realVar = inter.varList.vars.get(varName);
+                realVar.setValue(doubleVal);
+                break;
+
         }
     }
 

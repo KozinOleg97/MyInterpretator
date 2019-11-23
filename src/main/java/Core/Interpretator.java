@@ -2,6 +2,7 @@ package Core;
 
 import Lex.InitLex;
 import Lex.Lex;
+import Lex.PrintLex;
 import Types.Var;
 
 import java.lang.reflect.InvocationTargetException;
@@ -19,6 +20,7 @@ public class Interpretator {
         put("^Int *[a-zA-Z]+ *=*.*;$", InitLex.class);
         put("^Real *[a-zA-Z] *= *.*;$", InitLex.class);
         put("^String *[a-zA-Z] *= *.*;$", InitLex.class);
+        put("^Print *\\(.*\\);$", PrintLex.class);
     }};
 
     /*public String[][] dataList = {
@@ -56,6 +58,14 @@ public class Interpretator {
 
     public void nextLine() {
         curLine++;
+        if (curLine == allCode.length){
+            progExit("end_of_code");
+        }
+    }
+
+    private void progExit(String reason) {
+        System.out.println("Exit program : " + reason);
+        System.exit(0);
     }
 
     public void goTo(Integer line) {
@@ -100,6 +110,7 @@ public class Interpretator {
 
     public class VarList {
         public List<Var> list = new ArrayList<>();
+        public Map<String, Var> vars = new HashMap<String, Var>();
 
     }
 

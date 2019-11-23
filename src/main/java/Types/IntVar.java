@@ -14,11 +14,11 @@ public class IntVar extends Var<Integer> {
 
     @Override
     public void setValue(Integer value) {
-
+        this.value = value;
     }
 
     @Override
     public Integer getValue() {
-        return null;
+        return value;
     }
 }
