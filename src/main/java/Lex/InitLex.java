@@ -1,9 +1,6 @@
 package Lex;
 
-import Core.Expr;
-import Core.ExprResult;
-import Core.Interpretator;
-import Core.Typecaster;
+import Core.*;
 import Types.*;
 
 public class InitLex extends AssignmentLex {
@@ -14,21 +11,22 @@ public class InitLex extends AssignmentLex {
     @Override
     public void exec(Interpretator inter) {
 
-        Var var = getVar(code, inter.varList);
+        Var var = getVar(code, inter.thisEnvironment);
         ExprResult result = calcRightPart(code, var, inter);
 
         Typecaster.setValue(var, result);
-        addVarToVarList(var, inter.varList);
+        addVarToVarList(var, inter.thisEnvironment);
 
         inter.nextLine();
     }
 
-    private void addVarToVarList(Var var, Interpretator.VarList varList) {
-        varList.vars.put(var.getName(), var);
+    private void addVarToVarList(Var var, Environment varList) {
+        //varList.vars.put(var.getName(), var);
+        varList.putVar(var);
     }
 
 
-    private Var getVar(String code, Interpretator.VarList varList) {
+    private Var getVar(String code, Environment varList) {
 
         Integer endIntex = code.indexOf("=");
         String leftPart = code.substring(0, endIntex);

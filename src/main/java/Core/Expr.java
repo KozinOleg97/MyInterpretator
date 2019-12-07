@@ -6,7 +6,7 @@ import org.mariuszgromada.math.mxparser.Expression;
 import java.util.Map;
 
 public class Expr {
-    public static ExprResult eval(Interpretator.VarList vars, String code) {
+    public static ExprResult eval(Environment vars, String code) {
 
         String resCode = setValues(vars, code);
 
@@ -20,7 +20,7 @@ public class Expr {
 
     // a + 23 * f
     // a+23+f
-    private static String setValues(Interpretator.VarList vars, String code) {
+    private static String setValues(Environment vars, String code) {
 
         //String[] parts = code.split("(?=[+\\-*\\/])|(?<=[+\\-*\\/])");
 
@@ -86,7 +86,7 @@ public class Expr {
                         //возможно нужно удалять последний +. done!
                         exprPart = exprPart.trim();
                         exprPart = exprPart.substring(0, exprPart.length() - 1);
-                        res += Expr.eval(inter.varList, exprPart).strVal;
+                        res += Expr.eval(inter.thisEnvironment, exprPart).strVal;
                     }
 
                     exprPart = "";
@@ -94,7 +94,7 @@ public class Expr {
             }
         }
         if (!exprPart.isEmpty()) {
-            res += Expr.eval(inter.varList, exprPart).strVal;
+            res += Expr.eval(inter.thisEnvironment, exprPart).strVal;
             exprPart = "";
         }
 

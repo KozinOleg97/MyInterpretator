@@ -1,9 +1,6 @@
 package Lex;
 
-import Core.Expr;
-import Core.ExprResult;
-import Core.Interpretator;
-import Core.Typecaster;
+import Core.*;
 import Types.Var;
 
 public class AssignmentLex extends Lex {
@@ -14,7 +11,7 @@ public class AssignmentLex extends Lex {
     @Override
     public void exec(Interpretator inter) {
 
-        Var var = getVar(code, inter.varList);
+        Var var = getVar(code, inter.thisEnvironment);
         ExprResult result = calcRightPart(code, var, inter);
 
         Typecaster.setValue(var, result);
@@ -30,11 +27,12 @@ public class AssignmentLex extends Lex {
         return Expr.multiCalc(inter, body);
     }
 
-    private Var getVar(String code, Interpretator.VarList varList) {
+    private Var getVar(String code, Environment varList) {
         Integer endIndex = code.indexOf("=");
         String varName = code.substring(0, endIndex);
         varName = varName.trim();
-        return varList.vars.get(varName);
+        //return varList.vars.get(varName);
+        return varList.getVar(varName);
     }
 
     private String getBody(String line) {

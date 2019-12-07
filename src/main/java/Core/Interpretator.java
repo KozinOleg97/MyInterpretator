@@ -33,12 +33,17 @@ public class Interpretator {
     public static final String DEFAULT_STR_VALUE = "";
     public static final Boolean DEFAULT_BOOL_VALUE = false;
 
-    public Environment parentEnvironment = null;
+
     public Environment thisEnvironment = null;
     //public VarList varList = new VarList();
     String[] allCode;
 
-    Integer curLine;
+    private Integer curLine;
+
+    public Integer getCurLine() {
+        return curLine;
+    }
+
 
     //String pathToCode = "src\\main\\resources\\ProgrammText1.prog";
     String pathToConfig;
@@ -47,10 +52,16 @@ public class Interpretator {
     CodeLoader mainCodeLoader = null;
     LanguageConfigurator configurator = null;
 
+    /**
+     * Коструктор для первого интерпретатора, точка входа
+     * Поэтому передаётся null в parent
+     *
+     * @param codeLoader
+     */
     public Interpretator(CodeLoader codeLoader) {
         //loadCodeToArrayOfCode();
         allCode = codeLoader.getArrayOfCode();
-        thisEnvironment = new Environment();
+        thisEnvironment = new Environment(null);
 
         try {
             run();
@@ -59,9 +70,8 @@ public class Interpretator {
         }
     }
 
-    public Interpretator(String[] code, Environment parentEnvironment){
-        this.parentEnvironment = parentEnvironment;
-        thisEnvironment = new Environment();
+    public Interpretator(String[] code, Environment parentEnvironment) {
+        thisEnvironment = new Environment(parentEnvironment);
         allCode = code;
 
     }
@@ -109,17 +119,23 @@ public class Interpretator {
         throw new Exception("No such lex: " + line);
     }
 
-    public void run() throws Exception {
+    public void run() {
         curLine = 0;
         while (true) {
 
-            Lex newLex = checkLine(curLine, allCode[curLine]);
+            Lex newLex = null;
+            try {
+                newLex = checkLine(curLine, allCode[curLine]);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
 
             if (newLex != null) {
                 newLex.exec(this);
+            } else {
+                nextLine();
             }
-            else {nextLine();}
 
 
         }

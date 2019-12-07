@@ -1,5 +1,6 @@
 package Lex;
 
+import Core.Block;
 import Core.Expr;
 import Core.Interpretator;
 
@@ -16,21 +17,30 @@ public class Conditional extends Lex {
         String body = getBody(code);
         Boolean res = Expr.multiCalc(inter, body).bolVal;
 
+        Integer goToIndex;
+
         if (res) {
-            doThen();
+           goToIndex = doThen(inter);
         }
-        else doElse();
+        else  goToIndex = doElse(inter);
 
-
-
-    }
-
-    private void doElse() {
+        inter.goTo(goToIndex);
 
     }
 
-    private void doThen() {
+    private Integer doElse(Interpretator inter) {
 
+        return null;
+    }
+
+    private Integer doThen(Interpretator inter) {
+        Block block = new Block(inter);
+        String[] codeFromBlock = block.getBody();
+        Integer endIndex = block.getEndIndex();
+        Interpretator interpretator = new Interpretator(codeFromBlock, inter.thisEnvironment);
+        interpretator.run();
+
+        return endIndex;
     }
 
     private String getBody(String line) {
