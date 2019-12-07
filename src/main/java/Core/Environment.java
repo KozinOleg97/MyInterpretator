@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class Environment {
 
-    private Map<String, Var> vars = new HashMap<String, Var>();
+    public Map<String, Var> vars = new HashMap<String, Var>();
 
     private Environment parentEnvironment = null;
     private Integer depth = 0;
@@ -32,7 +32,7 @@ public class Environment {
         Environment curEnv = this;
 
         while ((curEnv != null) && (var == null)) {
-            var = vars.get(varName);
+            var = curEnv.vars.get(varName);
             if (var == null) {
                 curEnv = curEnv.parentEnvironment;
             }

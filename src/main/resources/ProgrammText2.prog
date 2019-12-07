@@ -4,16 +4,25 @@
 
     Int x = a+5 + (a - a);
 
-    if (a> x)
+    if (a< x)
     then {
         a = 100;
 
+        if (4<3)
+        then {
+            x = 3;
+        }
+        else {
+        x = 30;
+        }
+
+
         a = 1000;
-    }
-    else {
-        a = 0;
-        a = 2;
-    }
+        }
+         else {
+            a = 0;
+            a = 2;
+            }
 
 
     Print("x = " +x);

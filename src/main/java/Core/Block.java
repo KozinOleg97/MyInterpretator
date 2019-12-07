@@ -4,7 +4,7 @@ public class Block {
 
     Integer firstLine;
 
-    Integer beginingInd;
+    Integer beginningInd;
     Integer endInd;
 
     String[] allCode;
@@ -15,19 +15,19 @@ public class Block {
     }
 
     public String[] getBody() {
-        beginingInd = findeBegining();
+        beginningInd = findBeginning();
 
-        String[] body = findeBody();
+        String[] body = findBody();
 
 
         return body;
     }
 
-    private String[] findeBody() {
+    private String[] findBody() {
 
         String str;
         Integer counter = 1;
-        Integer i = beginingInd;
+        Integer i = beginningInd;
 
         while (counter > 0) {
 
@@ -44,17 +44,18 @@ public class Block {
             i++;
         }
 
+
         i--;
 
-        String[] resBody = new String[i - beginingInd];
-        System.arraycopy(allCode, beginingInd, resBody, 0, i - beginingInd );
+        String[] resBody = new String[i - beginningInd];
+        System.arraycopy(allCode, beginningInd, resBody, 0, i - beginningInd);
 
         endInd = i;
 
         return resBody;
     }
 
-    private Integer findeBegining() {
+    private Integer findBeginning() {
         Integer strIndex = this.firstLine + 1;
         Integer a = -1;
         // находим начало блока
@@ -68,6 +69,6 @@ public class Block {
     }
 
     public Integer getEndIndex() {
-        return null;
+        return endInd;
     }
 }

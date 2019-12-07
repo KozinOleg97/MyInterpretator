@@ -44,6 +44,10 @@ public class Interpretator {
         return curLine;
     }
 
+    //true = first interpretor
+    //false = parent one
+    boolean main = false;
+
 
     //String pathToCode = "src\\main\\resources\\ProgrammText1.prog";
     String pathToConfig;
@@ -60,6 +64,7 @@ public class Interpretator {
      */
     public Interpretator(CodeLoader codeLoader) {
         //loadCodeToArrayOfCode();
+        main = true;
         allCode = codeLoader.getArrayOfCode();
         thisEnvironment = new Environment(null);
 
@@ -78,9 +83,11 @@ public class Interpretator {
 
     public void nextLine() {
         curLine++;
-        if (curLine == allCode.length) {
+        if ((curLine == allCode.length) && (main)) {
             progExit("end_of_code");
+
         }
+
     }
 
     private void progExit(String reason) {
@@ -121,7 +128,8 @@ public class Interpretator {
 
     public void run() {
         curLine = 0;
-        while (true) {
+        //boolean returnFlag = false;
+        while (curLine < allCode.length) {
 
             Lex newLex = null;
             try {
@@ -139,6 +147,7 @@ public class Interpretator {
 
 
         }
+
     }
 
     /*public class VarList {

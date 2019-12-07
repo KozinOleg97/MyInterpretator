@@ -40,7 +40,7 @@ public class Expr {
 
         String res = "";
 
-        Map<String, Var> curVars = vars.vars;
+       // Map<String, Var> curVars = vars.vars;
         //TODO сделать нормально
         for (int i = 0; i < parts.length; i++) {
 
@@ -50,13 +50,21 @@ public class Expr {
                 continue;
             }
 
-            for (Map.Entry<String, Var> entry : curVars.entrySet()) {
+            Var var = vars.getVar(curPart);
+
+            if (var!=null){
+                curPart = var.getValue().toString();
+            }
+
+
+
+            /*for (Map.Entry<String, Var> entry : curVars.entrySet()) {
                 String varName = entry.getKey();
                 Var aVar = entry.getValue();
 
                 curPart = curPart.replace(varName, aVar.getValue().toString());
 
-            }
+            }*/
             res += curPart;
         }
         return res;
