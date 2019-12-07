@@ -22,7 +22,21 @@ public class Expr {
     // a+23+f
     private static String setValues(Interpretator.VarList vars, String code) {
 
-        String[] parts = code.split("(?=[+\\-*\\/])|(?<=[+\\-*\\/])");
+        //String[] parts = code.split("(?=[+\\-*\\/])|(?<=[+\\-*\\/])");
+
+        String modCode = code.replaceAll("\\+", " + ")
+                .replaceAll("-", " - ")
+                .replaceAll("\\)", " ) ")
+                .replaceAll("\\*", " * ")
+                .replaceAll("\\(", " ( ")
+                .replaceAll("/", " / ")
+                .replaceAll("<", " < ")
+                .replaceAll(">", " > ")
+                .replaceAll("=", " = ")
+                .replaceAll("\\|", " | ")
+                .replaceAll("&", " & ");
+
+        String[] parts = modCode.split(" ");
 
         String res = "";
 
@@ -31,6 +45,10 @@ public class Expr {
         for (int i = 0; i < parts.length; i++) {
 
             String curPart = parts[i];
+
+            if (curPart.equals("")){
+                continue;
+            }
 
             for (Map.Entry<String, Var> entry : curVars.entrySet()) {
                 String varName = entry.getKey();

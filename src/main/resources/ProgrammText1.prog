@@ -1,6 +1,23 @@
     Int a = 5 + 5;
-    Int x = a+5;
-    a =5;
+    Int x = a+5 + (a - a);
+
+    if (a< x)
+    then {
+        a = 100;
+
+        if (2>3)
+        then {
+            x = 3;
+        } else x = 30;
+        endif;
+
+        a = 1000;
+        } else {
+            a = 0;
+            a = 2;
+            }
+    endif;
+
     Print("x = " +x);
     Real b = 5;
     Print(34 + 6 + a + " qwe");

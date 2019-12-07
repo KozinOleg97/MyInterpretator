@@ -1,9 +1,6 @@
 package Core;
 
-import Lex.InitLex;
-import Lex.Lex;
-import Lex.PrintLex;
-import Lex.AssignmentLex;
+import Lex.*;
 import Types.Var;
 
 import java.lang.reflect.InvocationTargetException;
@@ -23,6 +20,7 @@ public class Interpretator {
         put("^String *[a-zA-Z] *= *.*;$", InitLex.class);
         put("^Print *\\(.*\\);$", PrintLex.class);
         put(".*=.*;$", AssignmentLex.class);
+        put("^if *\\(.*\\)$", Conditional.class);
     }};
 
     /*public String[][] dataList = {
@@ -35,12 +33,14 @@ public class Interpretator {
     public static final String DEFAULT_STR_VALUE = "";
     public static final Boolean DEFAULT_BOOL_VALUE = false;
 
-    public VarList varList = new VarList();
+    public Environment parentEnvironment = null;
+    public Environment thisEnvironment = null;
+    //public VarList varList = new VarList();
     String[] allCode;
 
     Integer curLine;
 
-    String pathToCode = "src\\main\\resources\\ProgrammText1.prog";
+    //String pathToCode = "src\\main\\resources\\ProgrammText1.prog";
     String pathToConfig;
 
 
@@ -48,8 +48,9 @@ public class Interpretator {
     LanguageConfigurator configurator = null;
 
     public Interpretator(CodeLoader codeLoader) {
-        loadCodeToArrayOfCode();
-        allCode = mainCodeLoader.getArrayOfCode();
+        //loadCodeToArrayOfCode();
+        allCode = codeLoader.getArrayOfCode();
+        thisEnvironment = new Environment();
 
         try {
             run();
@@ -58,9 +59,16 @@ public class Interpretator {
         }
     }
 
+    public Interpretator(String[] code, Environment parentEnvironment){
+        this.parentEnvironment = parentEnvironment;
+        thisEnvironment = new Environment();
+        allCode = code;
+
+    }
+
     public void nextLine() {
         curLine++;
-        if (curLine == allCode.length){
+        if (curLine == allCode.length) {
             progExit("end_of_code");
         }
     }
@@ -80,6 +88,9 @@ public class Interpretator {
         for (Map.Entry<String, Class> entry : ops.entrySet()) {
             String regex = entry.getKey();
             Class aClass = entry.getValue();
+
+            if (line.equals(""))
+                return null;
 
             if (line.matches(regex)) {
                 try {
@@ -104,22 +115,26 @@ public class Interpretator {
 
             Lex newLex = checkLine(curLine, allCode[curLine]);
 
-            newLex.exec(this);
+
+            if (newLex != null) {
+                newLex.exec(this);
+            }
+            else {nextLine();}
 
 
         }
     }
 
-    public class VarList {
+    /*public class VarList {
         public List<Var> list = new ArrayList<>();
         public Map<String, Var> vars = new HashMap<String, Var>();
 
-    }
+    }*/
 
 
-    public void loadCodeToArrayOfCode() {
+   /* public void loadCodeToArrayOfCode() {
         mainCodeLoader = new CodeLoader(pathToCode);
-    }
+    }*/
 
     public void loadLangConfig() {
         configurator = new LanguageConfigurator(pathToConfig);
