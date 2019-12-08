@@ -3,6 +3,7 @@
 
     Int x = -1000;
 
+    Int [10] mas;
 
     Int i = 0;
     While (i<1)

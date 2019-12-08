@@ -3,7 +3,6 @@ package Core;
 import Types.Var;
 import org.mariuszgromada.math.mxparser.Expression;
 
-import java.util.Map;
 
 public class Expr {
     public static ExprResult eval(Environment vars, String code) {
@@ -34,25 +33,26 @@ public class Expr {
                 .replaceAll(">", " > ")
                 .replaceAll("=", " = ")
                 .replaceAll("\\|", " | ")
-                .replaceAll("&", " & ");
+                .replaceAll("&", " & ")
+                .replaceAll("#", " # ");
 
         String[] parts = modCode.split(" ");
 
         String res = "";
 
-       // Map<String, Var> curVars = vars.vars;
+        // Map<String, Var> curVars = vars.vars;
         //TODO сделать нормально
         for (int i = 0; i < parts.length; i++) {
 
             String curPart = parts[i];
 
-            if (curPart.equals("")){
+            if (curPart.equals("")) {
                 continue;
             }
 
             Var var = vars.getVar(curPart);
 
-            if (var!=null){
+            if (var != null) {
                 curPart = var.getValue().toString();
             }
 
@@ -104,7 +104,7 @@ public class Expr {
         if (!exprPart.isEmpty()) {
 
             exprPart = exprPart.trim();
-            if (exprPart.charAt(0) == '+'){
+            if (exprPart.charAt(0) == '+') {
                 exprPart = exprPart.replaceFirst("\\+", "");
             }
 

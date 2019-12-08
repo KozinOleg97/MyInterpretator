@@ -1,0 +1,17 @@
+    Int n;
+    Int k;
+
+    Read(n);
+    Read(k);
+
+    Int r = 0;
+    Int i = 1;
+    While(i < n+1)
+    {
+        r = (r + k) # i;
+        i = i + 1;
+    }
+
+
+    Print("Result: " + r + 1);
+

@@ -29,6 +29,14 @@ public class InitLex extends AssignmentLex {
     private Var getVar(String code, Environment varList) {
 
         Integer endIntex = code.indexOf("=");
+
+        if (endIntex == -1){
+            String[] parts = code.split(" ");
+            String varName = parts[1].replaceAll(";", "");
+            Var var = createNewVar(parts[0], varName);
+            return var;
+        }
+
         String leftPart = code.substring(0, endIntex);
         leftPart = leftPart.trim();
         String[] parts = leftPart.split(" ");
