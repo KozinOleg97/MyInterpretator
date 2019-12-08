@@ -1,8 +1,19 @@
     Int a = 5 + 5;
     Print(34 + 6 + a + " qwe");
 
+    Int x = -1000;
 
-    Int x = a+5 + (a - a);
+
+    Int i = 0;
+    While (i<1)
+    {
+    Read(a);
+
+    Int x = a+5;
+    Print("x = " +x);
+
+    i = i+1;
+    }
 
     if (a> x)
     then {

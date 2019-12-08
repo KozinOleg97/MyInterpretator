@@ -102,6 +102,12 @@ public class Expr {
             }
         }
         if (!exprPart.isEmpty()) {
+
+            exprPart = exprPart.trim();
+            if (exprPart.charAt(0) == '+'){
+                exprPart = exprPart.replaceFirst("\\+", "");
+            }
+
             res += Expr.eval(inter.thisEnvironment, exprPart).strVal;
             exprPart = "";
         }

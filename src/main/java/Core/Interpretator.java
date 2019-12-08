@@ -19,14 +19,12 @@ public class Interpretator {
         put("^Real *[a-zA-Z] *= *.*;$", InitLex.class);
         put("^String *[a-zA-Z] *= *.*;$", InitLex.class);
         put("^Print *\\(.*\\);$", PrintLex.class);
+        put("^Read *\\(.*\\);$", ReadLex.class);
         put(".*=.*;$", AssignmentLex.class);
         put("^if *\\(.*\\)$", Conditional.class);
+        put("^While *\\(.*\\)$", CycleWhileLex.class);
     }};
 
-    /*public String[][] dataList = {
-            {"intVar", "^Int *[a-zA-Z] *= *.*;$"},
-            {"realVar", "^Real *[a-zA-Z] *= *.*;$"}
-    };*/
 
     public static final Integer DEFAULT_INT_VALUE = 0;
     public static final Double DEFAULT_REAL_VALUE = 0.0;
@@ -44,14 +42,9 @@ public class Interpretator {
         return curLine;
     }
 
-    //true = first interpretor
-    //false = parent one
     boolean main = false;
 
-
-    //String pathToCode = "src\\main\\resources\\ProgrammText1.prog";
     String pathToConfig;
-
 
     CodeLoader mainCodeLoader = null;
     LanguageConfigurator configurator = null;
@@ -63,7 +56,6 @@ public class Interpretator {
      * @param codeLoader
      */
     public Interpretator(CodeLoader codeLoader) {
-        //loadCodeToArrayOfCode();
         main = true;
         allCode = codeLoader.getArrayOfCode();
         thisEnvironment = new Environment(null);
@@ -99,7 +91,7 @@ public class Interpretator {
         curLine = line;
     }
 
-    //int a=0
+
     public Lex checkLine(Integer lineNumb, String line) throws Exception {
 
         for (Map.Entry<String, Class> entry : ops.entrySet()) {
@@ -150,16 +142,6 @@ public class Interpretator {
 
     }
 
-    /*public class VarList {
-        public List<Var> list = new ArrayList<>();
-        public Map<String, Var> vars = new HashMap<String, Var>();
-
-    }*/
-
-
-   /* public void loadCodeToArrayOfCode() {
-        mainCodeLoader = new CodeLoader(pathToCode);
-    }*/
 
     public void loadLangConfig() {
         configurator = new LanguageConfigurator(pathToConfig);
