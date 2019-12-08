@@ -1,6 +1,5 @@
 package Types;
 
-import Core.ExprResult;
 import Core.Interpretator;
 
 public class StrVar extends Var<String> {

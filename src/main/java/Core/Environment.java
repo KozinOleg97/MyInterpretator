@@ -2,14 +2,12 @@ package Core;
 
 import Types.Var;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Environment {
 
-    public Map<String, Var> vars = new HashMap<String, Var>();
+    private Map<String, Var> vars = new HashMap<>();
 
     private Environment parentEnvironment = null;
     private Integer depth = 0;

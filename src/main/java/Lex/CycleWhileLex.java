@@ -47,8 +47,8 @@ public class CycleWhileLex extends Lex {
 
 
     private String getBody(String line) {
-        Integer beginIndex = line.indexOf("(") + 1;
-        Integer endIndex = line.lastIndexOf(")");
+        int beginIndex = line.indexOf("(") + 1;
+        int endIndex = line.lastIndexOf(")");
         return line.substring(beginIndex, endIndex);
     }
 }

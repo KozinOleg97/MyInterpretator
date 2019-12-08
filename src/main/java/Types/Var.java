@@ -1,7 +1,5 @@
 package Types;
 
-import Core.ExprResult;
-
 abstract public class Var<V> {
     //Core.LanguageConfigurator.DataTypes;
     //Integer id;
@@ -9,10 +7,10 @@ abstract public class Var<V> {
         Float realValue = null;
         String strValue = null;
         Boolean boolValue = null;*/
-    String name;
+    private String name;
     V value;
 
-    public Var(String name) {
+    Var(String name) {
         this.name = name;
     }
 

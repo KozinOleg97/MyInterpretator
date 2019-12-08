@@ -59,15 +59,14 @@ public class Conditional extends Lex {
 
         Block block = new Block(inter);
         block.getBody();
-        Integer endIndex = block.getEndIndex();
 
-        return endIndex;
+        return block.getEndIndex();
 
     }
 
     private String getBody(String line) {
-        Integer beginIndex = line.indexOf("(") + 1;
-        Integer endIndex = line.lastIndexOf(")");
+        int beginIndex = line.indexOf("(") + 1;
+        int endIndex = line.lastIndexOf(")");
         return line.substring(beginIndex, endIndex);
     }
 }

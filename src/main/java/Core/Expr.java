@@ -5,15 +5,14 @@ import org.mariuszgromada.math.mxparser.Expression;
 
 
 public class Expr {
-    public static ExprResult eval(Environment vars, String code) {
+    private static ExprResult eval(Environment vars, String code) {
 
         String resCode = setValues(vars, code);
 
 
         Expression e = new Expression(resCode);
-        ExprResult res = new ExprResult(e.calculate());
 
-        return res;
+        return new ExprResult(e.calculate());
 
     }
 
@@ -38,13 +37,13 @@ public class Expr {
 
         String[] parts = modCode.split(" ");
 
-        String res = "";
+        StringBuilder res = new StringBuilder();
 
         // Map<String, Var> curVars = vars.vars;
         //TODO сделать нормально
-        for (int i = 0; i < parts.length; i++) {
+        for (String part : parts) {
 
-            String curPart = parts[i];
+            String curPart = part;
 
             if (curPart.equals("")) {
                 continue;
@@ -65,24 +64,24 @@ public class Expr {
                 curPart = curPart.replace(varName, aVar.getValue().toString());
 
             }*/
-            res += curPart;
+            res.append(curPart);
         }
-        return res;
+        return res.toString();
     }
 
     public static ExprResult multiCalc(Interpretator inter, String body) {
-        String exprPart = "";
-        String res = "";
-        Boolean stringFlag = false;
+        StringBuilder exprPart = new StringBuilder();
+        StringBuilder res = new StringBuilder();
+        boolean stringFlag = false;
         char curSymb;
         for (int i = 0; i < body.length(); i++) {
             curSymb = body.charAt(i);
 
             if (curSymb != '"') {
                 if (stringFlag) {
-                    res += curSymb;
+                    res.append(curSymb);
                 } else {
-                    exprPart += curSymb;
+                    exprPart.append(curSymb);
                 }
             } else {
                 if (stringFlag) {
@@ -90,29 +89,28 @@ public class Expr {
                 } else {
 
                     stringFlag = true;
-                    if (!exprPart.isEmpty()) {
+                    if (exprPart.length() > 0) {
                         //возможно нужно удалять последний +. done!
-                        exprPart = exprPart.trim();
-                        exprPart = exprPart.substring(0, exprPart.length() - 1);
-                        res += Expr.eval(inter.thisEnvironment, exprPart).strVal;
+                        exprPart = new StringBuilder(exprPart.toString().trim());
+                        exprPart = new StringBuilder(exprPart.substring(0, exprPart.length() - 1));
+                        res.append(Expr.eval(inter.thisEnvironment, exprPart.toString()).strVal);
                     }
 
-                    exprPart = "";
+                    exprPart = new StringBuilder();
                 }
             }
         }
-        if (!exprPart.isEmpty()) {
+        if (exprPart.length() > 0) {
 
-            exprPart = exprPart.trim();
+            exprPart = new StringBuilder(exprPart.toString().trim());
             if (exprPart.charAt(0) == '+') {
-                exprPart = exprPart.replaceFirst("\\+", "");
+                exprPart = new StringBuilder(exprPart.toString().replaceFirst("\\+", ""));
             }
 
-            res += Expr.eval(inter.thisEnvironment, exprPart).strVal;
-            exprPart = "";
+            res.append(Expr.eval(inter.thisEnvironment, exprPart.toString()).strVal);
+            exprPart = new StringBuilder();
         }
 
-        ExprResult result = new ExprResult(res);
-        return result;
+        return new ExprResult(res.toString());
     }
 }

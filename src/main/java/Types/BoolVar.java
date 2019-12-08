@@ -1,6 +1,5 @@
 package Types;
 
-import Core.ExprResult;
 import Core.Interpretator;
 
 public class BoolVar extends Var<Boolean> {

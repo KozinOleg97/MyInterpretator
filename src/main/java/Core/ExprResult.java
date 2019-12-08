@@ -1,7 +1,5 @@
 package Core;
 
-import Types.Var;
-
 public class ExprResult {
     public String strVal;
     public Double realVal;
@@ -12,9 +10,7 @@ public class ExprResult {
         intVal = calculatedRes.intValue();
         realVal = calculatedRes;
         strVal = calculatedRes.toString();
-        if (calculatedRes == 0.0) {
-            bolVal = false;
-        } else bolVal = true;
+        bolVal = !(calculatedRes == 0.0);
     }
 
     public ExprResult(String res) {
@@ -32,9 +28,7 @@ public class ExprResult {
         }
 
 
-        if (res.equals("0.0")) {
-            bolVal = false;
-        } else bolVal = true;
+        bolVal = !res.equals("0.0");
     }
 
 

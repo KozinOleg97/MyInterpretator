@@ -12,7 +12,7 @@ public class AssignmentLex extends Lex {
     public void exec(Interpretator inter) {
 
         Var var = getVar(code, inter.thisEnvironment);
-        ExprResult result = calcRightPart(code, var, inter);
+        ExprResult result = calcRightPart(code, inter);
 
         Typecaster.setValue(var, result);
         //var.setValue(result.getValue(var));
@@ -20,7 +20,7 @@ public class AssignmentLex extends Lex {
 
     }
 
-    protected ExprResult calcRightPart(String code, Var var, Interpretator inter) {
+    ExprResult calcRightPart(String code, Interpretator inter) {
 
         String body = getBody(code);
 
@@ -36,8 +36,8 @@ public class AssignmentLex extends Lex {
     }
 
     private String getBody(String line) {
-        Integer beginIndex = line.indexOf("=") + 1;
-        Integer endIndex = line.lastIndexOf(";");
+        int beginIndex = line.indexOf("=") + 1;
+        int endIndex = line.lastIndexOf(";");
         return line.substring(beginIndex, endIndex);
     }
 }

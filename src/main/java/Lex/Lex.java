@@ -6,7 +6,7 @@ abstract public class Lex {
 
     String code;
 
-    public  Lex (String code){
+    Lex(String code){
         this.code = code;
     }
 

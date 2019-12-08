@@ -3,7 +3,7 @@ package Core;
 import Types.Var;
 
 public class Typecaster {
-    public static Var setValue(Var var, ExprResult result) {
+    public static void setValue(Var var, ExprResult result) {
 
         String type = var.getClass().getName();
 
@@ -22,6 +22,5 @@ public class Typecaster {
                 break;
         }
 
-        return null;
     }
 }

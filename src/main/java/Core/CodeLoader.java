@@ -21,7 +21,7 @@ public class CodeLoader {
         this.curPath = path;
         listOfCode = LoadCodeToList();
         listOfCode = CleanListOfCode(listOfCode);
-        arrayOfCode = listOfCode.toArray(new String[listOfCode.size()]);
+        arrayOfCode = listOfCode.toArray(new String[0]);
     }
 
     private List<String> CleanListOfCode(List<String> listOfCode) {

@@ -3,7 +3,7 @@ package Core;
 /**
  * describe language
  */
-public class LanguageConfigurator {
+class LanguageConfigurator {
 
     /**
      *

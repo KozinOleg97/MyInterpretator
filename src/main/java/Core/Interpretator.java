@@ -1,12 +1,9 @@
 package Core;
 
 import Lex.*;
-import Types.Var;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,7 +11,7 @@ import java.util.Map;
  */
 public class Interpretator {
 
-    public Map<String, Class> ops = new HashMap<String, Class>() {{
+    private Map<String, Class> ops = new HashMap<String, Class>() {{
         put("^Int *[a-zA-Z]+ *=*.*;$", InitLex.class);
         put("^Real *[a-zA-Z] *= *.*;$", InitLex.class);
         put("^String *[a-zA-Z] *= *.*;$", InitLex.class);
@@ -32,7 +29,7 @@ public class Interpretator {
     public static final Boolean DEFAULT_BOOL_VALUE = false;
 
 
-    public Environment thisEnvironment = null;
+    public Environment thisEnvironment;
     //public VarList varList = new VarList();
     String[] allCode;
 
@@ -42,12 +39,11 @@ public class Interpretator {
         return curLine;
     }
 
-    boolean main = false;
+    private boolean main = false;
 
-    String pathToConfig;
+    private String pathToConfig;
 
     CodeLoader mainCodeLoader = null;
-    LanguageConfigurator configurator = null;
 
     /**
      * Коструктор для первого интерпретатора, точка входа
@@ -92,7 +88,7 @@ public class Interpretator {
     }
 
 
-    public Lex checkLine(Integer lineNumb, String line) throws Exception {
+    private Lex checkLine(Integer lineNumb, String line) throws Exception {
 
         for (Map.Entry<String, Class> entry : ops.entrySet()) {
             String regex = entry.getKey();
@@ -104,13 +100,7 @@ public class Interpretator {
             if (line.matches(regex)) {
                 try {
                     return (Lex) aClass.getConstructor(String.class).newInstance(line);
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                } catch (NoSuchMethodException e) {
+                } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
                     e.printStackTrace();
                 }
             }
@@ -144,7 +134,7 @@ public class Interpretator {
 
 
     public void loadLangConfig() {
-        configurator = new LanguageConfigurator(pathToConfig);
+        LanguageConfigurator configurator = new LanguageConfigurator(pathToConfig);
     }
 
 

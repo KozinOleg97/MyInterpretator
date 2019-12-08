@@ -2,12 +2,12 @@ package Core;
 
 public class Block {
 
-    Integer firstLine;
+    private Integer firstLine;
 
-    Integer beginningInd;
-    Integer endInd;
+    private Integer beginningInd;
+    private Integer endInd;
 
-    String[] allCode;
+    private String[] allCode;
 
     public Block(Interpretator interpretator) {
         this.firstLine = interpretator.getCurLine();
@@ -17,16 +17,14 @@ public class Block {
     public String[] getBody() {
         beginningInd = findBeginning();
 
-        String[] body = findBody();
 
-
-        return body;
+        return findBody();
     }
 
     private String[] findBody() {
 
         String str;
-        Integer counter = 1;
+        int counter = 1;
         Integer i = beginningInd;
 
         while (counter > 0) {
@@ -57,7 +55,7 @@ public class Block {
 
     private Integer findBeginning() {
         Integer strIndex = this.firstLine + 1;
-        Integer a = -1;
+        int a = -1;
         // находим начало блока
         while (a == -1) {
             a = allCode[strIndex].indexOf("{");

@@ -12,7 +12,7 @@ public class InitLex extends AssignmentLex {
     public void exec(Interpretator inter) {
 
         Var var = getVar(code, inter.thisEnvironment);
-        ExprResult result = calcRightPart(code, var, inter);
+        ExprResult result = calcRightPart(code, inter);
 
         Typecaster.setValue(var, result);
         addVarToVarList(var, inter.thisEnvironment);
@@ -28,13 +28,12 @@ public class InitLex extends AssignmentLex {
 
     private Var getVar(String code, Environment varList) {
 
-        Integer endIntex = code.indexOf("=");
+        int endIntex = code.indexOf("=");
 
         if (endIntex == -1){
             String[] parts = code.split(" ");
             String varName = parts[1].replaceAll(";", "");
-            Var var = createNewVar(parts[0], varName);
-            return var;
+            return createNewVar(parts[0], varName);
         }
 
         String leftPart = code.substring(0, endIntex);
@@ -43,9 +42,7 @@ public class InitLex extends AssignmentLex {
         String type = parts[0];
         String name = parts[1];
 
-        Var var = createNewVar(type, name);
-
-        return var;
+        return createNewVar(type, name);
     }
 
     private Var createNewVar(String type, String name) {
