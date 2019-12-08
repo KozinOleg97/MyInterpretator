@@ -15,7 +15,7 @@ public class ReadLex extends ProcedureLex {
     }
 
     @Override
-    public void exec(Interpretator inter) {
+    public void exec(Interpretator inter) throws Exception {
         String body = getBody(code);
         Var var = inter.thisEnvironment.getVar(body);
 
@@ -24,7 +24,9 @@ public class ReadLex extends ProcedureLex {
         Scanner in = new Scanner(System.in);
         ExprResult result = new ExprResult(in.nextLine());
 
-        Typecaster.setValue(var, result);
+
+            Typecaster.setValue(var, result);
+
 
         inter.nextLine();
     }

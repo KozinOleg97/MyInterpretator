@@ -9,19 +9,20 @@ public class InitLex extends AssignmentLex {
     }
 
     @Override
-    public void exec(Interpretator inter) {
+    public void exec(Interpretator inter) throws Exception {
 
         Var var = getVar(code, inter.thisEnvironment);
         ExprResult result = calcRightPart(code, inter);
 
+
         Typecaster.setValue(var, result);
+
         addVarToVarList(var, inter.thisEnvironment);
 
         inter.nextLine();
     }
 
     private void addVarToVarList(Var var, Environment varList) {
-        //varList.vars.put(var.getName(), var);
         varList.putVar(var);
     }
 
@@ -30,7 +31,7 @@ public class InitLex extends AssignmentLex {
 
         int endIntex = code.indexOf("=");
 
-        if (endIntex == -1){
+        if (endIntex == -1) {
             String[] parts = code.split(" ");
             String varName = parts[1].replaceAll(";", "");
             return createNewVar(parts[0], varName);

@@ -16,7 +16,6 @@ public class RealVar extends Var<Double> {
     }
 
 
-
     @Override
     public Double getValue() {
         return value;

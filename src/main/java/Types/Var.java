@@ -16,10 +16,9 @@ abstract public class Var<V> {
 
     abstract public void setValue(V value);
 
-
     abstract public V getValue();
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 }

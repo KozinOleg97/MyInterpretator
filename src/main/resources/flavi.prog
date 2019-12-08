@@ -6,6 +6,8 @@
 
     Int r = 0;
     Int i = 1;
+
+
     While(i < n+1)
     {
         r = (r + k) # i;

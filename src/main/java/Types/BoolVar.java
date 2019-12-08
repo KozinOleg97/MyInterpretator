@@ -12,13 +12,12 @@ public class BoolVar extends Var<Boolean> {
 
     @Override
     public void setValue(Boolean value) {
-
+        this.value = value;
     }
-
 
 
     @Override
     public Boolean getValue() {
-        return null;
+        return value;
     }
 }

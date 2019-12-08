@@ -10,7 +10,7 @@ abstract public class Lex {
         this.code = code;
     }
 
-    abstract public void exec (Interpretator inter);
+    abstract public void exec (Interpretator inter) throws Exception;
 
 
 }

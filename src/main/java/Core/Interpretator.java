@@ -1,5 +1,7 @@
 package Core;
 
+import Errors.NoSuchVar;
+import Errors.ValueErr;
 import Lex.*;
 
 import java.lang.reflect.InvocationTargetException;
@@ -13,8 +15,8 @@ public class Interpretator {
 
     private Map<String, Class> ops = new HashMap<String, Class>() {{
         put("^Int *[a-zA-Z]+ *=*.*;$", InitLex.class);
-        put("^Real *[a-zA-Z] *= *.*;$", InitLex.class);
-        put("^String *[a-zA-Z] *= *.*;$", InitLex.class);
+        put("^Real *[a-zA-Z]+ *=*.*;$", InitLex.class);
+        //put("^String *[a-zA-Z]+ *= *.*;$", InitLex.class);
         put("^Print *\\(.*\\);$", PrintLex.class);
         put("^Read *\\(.*\\);$", ReadLex.class);
         put(".*=.*;$", AssignmentLex.class);
@@ -105,7 +107,7 @@ public class Interpretator {
                 }
             }
         }
-        throw new Exception("No such lex: " + line);
+        throw new NoSuchVar("No such lex: " + line, -1);
     }
 
     public void run() {
@@ -122,7 +124,15 @@ public class Interpretator {
 
 
             if (newLex != null) {
-                newLex.exec(this);
+                try {
+                    newLex.exec(this);
+                } catch (NoSuchVar | ValueErr e) {
+                    e.printStackTrace();
+                    System.out.println("In line " + (getCurLine()+1));
+                    nextLine();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             } else {
                 nextLine();
             }

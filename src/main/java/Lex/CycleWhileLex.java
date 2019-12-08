@@ -10,7 +10,7 @@ public class CycleWhileLex extends Lex {
     }
 
     @Override
-    public void exec(Interpretator inter) {
+    public void exec(Interpretator inter) throws Exception {
 
         String body = getBody(code);
 
@@ -41,8 +41,6 @@ public class CycleWhileLex extends Lex {
 
         Interpretator interpretator = new Interpretator(codeFromBlock, inter.thisEnvironment);
         interpretator.run();
-
-
     }
 
 

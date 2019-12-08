@@ -1,23 +1,30 @@
 package Core;
 
+import Errors.ValueErr;
 import Types.Var;
 import org.mariuszgromada.math.mxparser.Expression;
 
 
 public class Expr {
-    private static ExprResult eval(Environment vars, String code) {
+    private static ExprResult eval(Environment vars, String code) throws ValueErr {
 
         String resCode = setValues(vars, code);
 
 
         Expression e = new Expression(resCode);
 
-        return new ExprResult(e.calculate());
+        ExprResult result =  new ExprResult(e.calculate());
+
+        if (result.strVal.equals("NaN")){
+            //TODO нужно ловить некорректные выражения
+            //throw new ValueErr(code ,-1 );
+        }
+
+        return result;
+
 
     }
 
-    // a + 23 * f
-    // a+23+f
     private static String setValues(Environment vars, String code) {
 
         //String[] parts = code.split("(?=[+\\-*\\/])|(?<=[+\\-*\\/])");
@@ -55,21 +62,12 @@ public class Expr {
                 curPart = var.getValue().toString();
             }
 
-
-
-            /*for (Map.Entry<String, Var> entry : curVars.entrySet()) {
-                String varName = entry.getKey();
-                Var aVar = entry.getValue();
-
-                curPart = curPart.replace(varName, aVar.getValue().toString());
-
-            }*/
             res.append(curPart);
         }
         return res.toString();
     }
 
-    public static ExprResult multiCalc(Interpretator inter, String body) {
+    public static ExprResult multiCalc(Interpretator inter, String body) throws Exception {
         StringBuilder exprPart = new StringBuilder();
         StringBuilder res = new StringBuilder();
         boolean stringFlag = false;
@@ -110,6 +108,8 @@ public class Expr {
             res.append(Expr.eval(inter.thisEnvironment, exprPart.toString()).strVal);
             exprPart = new StringBuilder();
         }
+
+
 
         return new ExprResult(res.toString());
     }

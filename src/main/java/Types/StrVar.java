@@ -12,14 +12,13 @@ public class StrVar extends Var<String> {
 
     @Override
     public void setValue(String value) {
-
+        this.value = value;
     }
-
 
 
     @Override
     public String getValue() {
-        return null;
+        return value;
     }
 
 

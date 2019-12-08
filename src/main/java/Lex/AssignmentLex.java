@@ -1,6 +1,8 @@
 package Lex;
 
 import Core.*;
+import Errors.NoSuchVar;
+import Errors.ValueErr;
 import Types.Var;
 
 public class AssignmentLex extends Lex {
@@ -9,18 +11,19 @@ public class AssignmentLex extends Lex {
     }
 
     @Override
-    public void exec(Interpretator inter) {
+    public void exec(Interpretator inter) throws Exception {
 
         Var var = getVar(code, inter.thisEnvironment);
         ExprResult result = calcRightPart(code, inter);
 
-        Typecaster.setValue(var, result);
-        //var.setValue(result.getValue(var));
-        inter.nextLine();
 
+        Typecaster.setValue(var, result);
+
+
+        inter.nextLine();
     }
 
-    ExprResult calcRightPart(String code, Interpretator inter) {
+    ExprResult calcRightPart(String code, Interpretator inter) throws Exception {
 
         String body = getBody(code);
 
@@ -31,7 +34,6 @@ public class AssignmentLex extends Lex {
         Integer endIndex = code.indexOf("=");
         String varName = code.substring(0, endIndex);
         varName = varName.trim();
-        //return varList.vars.get(varName);
         return varList.getVar(varName);
     }
 

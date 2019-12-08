@@ -13,12 +13,10 @@ public class PrintLex extends ProcedureLex {
     //Print("qwe");
     //Print(a+"qwe');
     @Override
-    public void exec(Interpretator inter) {
+    public void exec(Interpretator inter) throws Exception {
 
         String body = getBody(code);
         String res = Expr.multiCalc(inter, body).strVal;
-
-        //Object res = Expr.eval(inter.varList, code);
 
         System.out.println(res);
 

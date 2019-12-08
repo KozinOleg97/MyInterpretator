@@ -10,7 +10,7 @@ public class Conditional extends Lex {
     }
 
     @Override
-    public void exec(Interpretator inter) {
+    public void exec(Interpretator inter) throws Exception {
 
 
         String body = getBody(code);
