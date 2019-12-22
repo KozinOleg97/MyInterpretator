@@ -1,4 +1,6 @@
-package Core;
+package Lex;
+
+import Core.Interpretator;
 
 public class Block {
 

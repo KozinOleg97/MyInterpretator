@@ -4,8 +4,10 @@
 
     Int x = a+5 + (a - a);
 
-    if (a< x)
+    if (a *2 < x)
     then {
+        Print("true");
+
         a = 100;
 
         if (4<3)
@@ -20,6 +22,7 @@
         a = 1000;
         }
          else {
+            Print("false");
             a = 0;
             a = 2;
             }

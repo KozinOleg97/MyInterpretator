@@ -7,13 +7,19 @@
     Int r = 0;
     Int i = 1;
 
+    if (n > 0)
+    then {
+        While (i < n+1)
+        {
+            r = (r + k) # i;
+            i = i + 1;
+        }
 
-    While(i < n+1)
-    {
-        r = (r + k) # i;
-        i = i + 1;
+        Print("Result: " + r + 1);
+    }
+    else {
+        Print("Некорректные данные");
     }
 
 
-    Print("Result: " + r + 1);
 

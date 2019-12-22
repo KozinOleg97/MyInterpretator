@@ -33,7 +33,7 @@ public class Interpretator {
 
     public Environment thisEnvironment;
     //public VarList varList = new VarList();
-    String[] allCode;
+    public String[] allCode;
 
     private Integer curLine;
 
@@ -128,7 +128,7 @@ public class Interpretator {
                     newLex.exec(this);
                 } catch (NoSuchVar | ValueErr e) {
                     e.printStackTrace();
-                    System.out.println("In line " + (getCurLine()+1));
+                    System.out.println("In line " + (getCurLine() + 1));
                     nextLine();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -140,11 +140,6 @@ public class Interpretator {
 
         }
 
-    }
-
-
-    public void loadLangConfig() {
-        LanguageConfigurator configurator = new LanguageConfigurator(pathToConfig);
     }
 
 
