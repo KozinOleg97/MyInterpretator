@@ -92,12 +92,21 @@ public class Interpretator {
 
     private Lex checkLine(Integer lineNumb, String line) throws Exception {
 
+        int flag = 0;
         for (Map.Entry<String, Class> entry : ops.entrySet()) {
             String regex = entry.getKey();
             Class aClass = entry.getValue();
 
-            if (line.equals(""))
+
+
+            if ((line.equals("}") || line.equals("{"))){
                 return null;
+            }
+
+            if (line.equals("")) {
+
+                return null;
+            }
 
             if (line.matches(regex)) {
                 try {
